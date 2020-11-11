@@ -17,9 +17,10 @@ public class Boids : MonoBehaviour
         for (int i = 0; i < Scalar; i++)
         {
             Boid[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Boid[i].GetComponent<Renderer>().material.color = Color.green;
         }
         SpawnBoids(Boid);
-        CalculateCenter(true);
+        CalculateCenter();
     }
 
     // Update is called once per frame
@@ -32,11 +33,10 @@ public class Boids : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E)) //respawn the bois
         {
-            CalculateCenter(true);
 
         }
         time++;
-        if (time == 5)
+        if (time == 1)
         {
             time = 0;
             Debug.Log("second");
@@ -48,19 +48,7 @@ public class Boids : MonoBehaviour
             }
         }
     }
-    void CalculateCenter(bool b)
-    {
-        // Rule 1: Boids try to fly towards the centre of mass of neighbouring boids
-        Vector3 collection = new Vector3(0, 0, 0);
-        foreach (GameObject a in Boid)
-        {
-            collection += a.transform.position;
-        }
-        collection = collection / 10; //combination of all vectors
-                                       Center = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                                       Center.transform.position = collection;
-
-    }
+   
     Vector3 CalculateCenter()
     {
         // Rule 1: Boids try to fly towards the centre of mass of neighbouring boids
@@ -108,9 +96,9 @@ public class Boids : MonoBehaviour
     {
         foreach (GameObject item in array)
         {
-            int x = Random.Range(1, 10);
-            int y = Random.Range(1, 10);
-            int z = Random.Range(1, 10);
+            int x = Random.Range(1, 15);
+            int y = Random.Range(1, 15);
+            int z = Random.Range(1, 15);
             item.transform.position = new Vector3(x, y, z);
 
         }
