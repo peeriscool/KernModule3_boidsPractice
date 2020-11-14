@@ -17,9 +17,9 @@ public class Boids4 : MonoBehaviour
     public int Centerweight = 470;
     public int CenterStep = 500;
     Vector3 Center;
-    [Range(0.5f,40f)]
+    [Range(0.5f,80f)]
     public float SocialDistance = 4;
-    [Range(1f, 40f)]
+    [Range(1f, 80f)]
     public int DistanceStep = 5;
     public float DistanceWeight = 30;
     public float AlignmentWeight = 0f;
@@ -70,7 +70,7 @@ public class Boids4 : MonoBehaviour
      void FixedUpdate()
     {
         time++;
-        if (time < 200)
+        if (time < 100)
         {
             //   time = 0;
 
@@ -81,13 +81,13 @@ public class Boids4 : MonoBehaviour
                 v2 = rule2(boids[i]);
                 v3 = rule3(boids[i]);
 
-                boids[i].Velocity = boids[i].Velocity + v1 + v2;
+                boids[i].Velocity = boids[i].Velocity + Vector3.Normalize(v1) + v2;
                 // boids[i].Velocity = boids[i].Velocity * Time.deltaTime * Movement;
                 boids[i].Position = boids[i].Velocity + boids[i].Velocity;
                 boids[i].UpdateBoid(boids[i].Position, boids[i].Velocity);
             }
         }
-        if (time > 200)
+        if (time > 100)
         {
             //   time = 0;
             for (int i = 0; i < boidCount; i++)

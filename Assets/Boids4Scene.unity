@@ -310,9 +310,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boidCount: 10
-  Centerweight: 1
+  Centerweight: -500
   CenterStep: 6500
-  SocialDistance: 38.3
+  SocialDistance: 30.9
   DistanceStep: 40
   DistanceWeight: 2000
   AlignmentWeight: 3.61
