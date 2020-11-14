@@ -14,17 +14,17 @@ public class Boids4 : MonoBehaviour
 
    // Vector3 Distancing = new Vector3(0, 0, 0);
 
-    int Centerweight = 470;
-    int CenterStep = 500;
+    public int Centerweight = 470;
+    public int CenterStep = 500;
     Vector3 Center;
     [Range(0.5f,40f)]
     public float SocialDistance = 4;
     [Range(1f, 40f)]
     public int DistanceStep = 5;
     public float DistanceWeight = 30;
-    public float AlignmentWeight = 1f;
-    float Movement = 60f;
+    public float AlignmentWeight = 0f;
     int time = 0;
+    public float Movement = 0;
     class boidspawn
         {
         //variables
@@ -69,30 +69,37 @@ public class Boids4 : MonoBehaviour
     }
      void FixedUpdate()
     {
-
-        for (int i = 0; i < boidCount; i++)
-        {
-            v1 = rule1(boids[i].model);
-            v2 = rule2(boids[i]);
-            v3 = rule3(boids[i]);
-            
-            boids[i].Velocity = boids[i].Velocity + v1 + v2 + Vector3.Normalize(v3);
-            boids[i].Velocity = boids[i].Velocity * Time.deltaTime * Movement;
-            boids[i].Position = boids[i].Velocity + boids[i].Velocity;
-            boids[i].UpdateBoid(boids[i].Position, boids[i].Velocity);
-        }
         time++;
-        if (time == 50)
+        if (time < 200)
         {
-            time = 0;
-            Debug.Log(Movement);
-            if (Movement == 60)
+            //   time = 0;
+
+
+            for (int i = 0; i < boidCount; i++)
             {
-                Movement = 63;
+                v1 = rule1(boids[i].model);
+                v2 = rule2(boids[i]);
+                v3 = rule3(boids[i]);
+
+                boids[i].Velocity = boids[i].Velocity + v1 + v2;
+                // boids[i].Velocity = boids[i].Velocity * Time.deltaTime * Movement;
+                boids[i].Position = boids[i].Velocity + boids[i].Velocity;
+                boids[i].UpdateBoid(boids[i].Position, boids[i].Velocity);
             }
-            else if (Movement == 63)
+        }
+        if (time > 200)
+        {
+            //   time = 0;
+            for (int i = 0; i < boidCount; i++)
             {
-                Movement = 60;
+                v1 = rule1(boids[i].model);
+                v2 = rule2(boids[i]);
+                v3 = rule3(boids[i]);
+
+                boids[i].Velocity = boids[i].Velocity + v1 + v2 + Vector3.Normalize(v3);
+                 boids[i].Velocity = boids[i].Velocity * Time.deltaTime * Movement;
+                boids[i].Position = boids[i].Velocity + boids[i].Velocity;
+                boids[i].UpdateBoid(boids[i].Position, boids[i].Velocity);
             }
         }
     }
